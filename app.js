@@ -1,3 +1,6 @@
+// This file is the "brains" of the application.
+// Here where we include the dependencies and the middleware, and where we create the server.
+
 const express = require("express");
 const app = express();
 const cors = require("cors");
