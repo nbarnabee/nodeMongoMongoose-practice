@@ -13,10 +13,10 @@ const mongoose = require("mongoose");
 app.use(express.static("public"));
 
 // Templating engine
-/* app.set("layout", "./layouts/main"); appears to be indicating that the file "main.ejs" will be the template into which the data from the other ejs files will be rendered.  But I admit that I don't fully understand it. */
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 app.set("layout", "./layouts/main");
+/* app.set("layout", "./layouts/main"); appears to be indicating that the file "main.ejs" will be the template into which the data from the other ejs files will be rendered.  But I admit that I don't fully understand it. */
 
 // Data parsing
 app.use(express.json());
