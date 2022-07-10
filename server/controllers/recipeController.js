@@ -20,8 +20,6 @@ exports.homepage = async (req, res) => {
   }
 };
 
-//The above indicates that the homepage is created by rendering the data in the "index" file in the main.ejs file.  I've also specified a page title.
-
 /*
 
 The following code block was used to create an initial set of dummy categories in the database.  Pretty neat!
