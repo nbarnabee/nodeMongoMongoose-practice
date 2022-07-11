@@ -18,7 +18,7 @@ a {
 /* Category card */
 
 .category__link {
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
   display: block;
   text-decoration: none;
