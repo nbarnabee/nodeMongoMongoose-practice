@@ -57,14 +57,18 @@
   </div>
 
   <div class="row px-4 px-sm-3 g-4 justify-content-center">
+
+    <% if (recipes != "") { %>
+    <% recipes.forEach(recipe => { %>
     <div class="col-sm-6 col-md-3 col-lg">
       <a href="/recipe/#" class="text-center category__link">
         <div class="category__img category__img--large shadow">
-          <img src="img/chocolate-banoffe-whoopie-pies.jpg" alt="Chocolate Banoffe" loading="lazy" class="h-100">
+          <img src="img/<%= recipe.image %>" alt="<%= recipe.name %>" loading="lazy" class="h-100">
         </div>
-        <div class="pt-1">Chocolate Banoffe</div>
+        <div class="pt-1"><%= recipe.name %></div>
       </a>
     </div>
+    <% })} %>
 
     <div class="col-sm-6 col-md-3 col-lg">
       <a href="/recipe/#" class="text-center category__link">
