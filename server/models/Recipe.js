@@ -14,9 +14,13 @@ const recipeSchema = new mongoose.Schema({
     required: true,
   },
   category: {
-    type: [String],
+    type: String,
     enum: ["Thai", "American", "Chinese", "Mexican", "Indian", "Spanish"],
-    // Only the above values are valid; the array must be specifically defined as [String] or [Number] and not merely "Array" for this to work
+    // Only the above values are valid entries; if the category type is an array, it must be specifically defined as [String] or [Number] and not merely "Array" for this to work
+    required: true,
+  },
+  image: {
+    type: String,
     required: true,
   },
 });
