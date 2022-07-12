@@ -14,7 +14,8 @@ exports.homepage = async (req, res) => {
     //Step 1: get the categories from the server.
     const limitNumber = 5;
     const categories = await Category.find().limit(limitNumber);
-    res.render("index", { title: "Cooking Blog: Home", categories });
+    const recipes = await Recipe.find().limit(limitNumber);
+    res.render("index", { title: "Cooking Blog: Home", categories, recipes });
     //The above indicates that the homepage is created by rendering the data in the "index" file in the main.ejs file.  I've also specified a page title.   If you look at ./views/layouts/main.js you'll see where it wil be inserted)
   } catch (error) {
     res.status(500).send({ message: error.message || "Error Occurred" });
@@ -36,29 +37,3 @@ exports.exploreCategories = async (req, res) => {
     res.status(500).send({ message: error.message || "Error occurred" });
   }
 };
-
-/*
-
-The following code block was used to create an initial set of dummy categories in the database.  Pretty neat!
-
-*/
-
-/*
-async function insertCategoryData() {
-  try {
-    await Category.insertMany([
-      { name: "Thai", image: "thai-food.jpg" },
-      { name: "American", image: "american-food.jpg" },
-      { name: "Indian", image: "indian-food.jpg" },
-      { name: "Chinese", image: "chinese-food.jpg" },
-      { name: "Spanish", image: "spanish-food.jpg" },
-      { name: "Mexican", image: "mexican-food.jpg" },
-    ]);
-  } catch (error) {
-    console.log("Error:" + error);
-  }
-}
-
-insertCategoryData();
-
-*/
