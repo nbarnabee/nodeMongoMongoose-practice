@@ -26,5 +26,6 @@ const recipeSchema = new mongoose.Schema({
 });
 
 recipeSchema.index({ name: "text", description: "text" });
+// The above will create an associated index which is what MongoDB search queries will look at (rather than looking through ALL properties of the objects)
 
 module.exports = mongoose.model("Recipe", recipeSchema);
