@@ -44,12 +44,32 @@ GET recipe by ID
 */
 exports.exploreRecipe = async (req, res) => {
   try {
-    console.log(req.path);
     const recipe = await Recipe.findById(req.params.id);
     // key difference between generic find() and findById() : find() returns an array and findById() returns a single object
     console.log(recipe);
     res.render("recipe", { title: `Cooking Blog: ${recipe.name}`, recipe });
   } catch (error) {
-    res.render("error", { title: "Cooking Blog: File Not Found" });
+    console.log(error);
+    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
+  }
+};
+
+/*
+POST search
+*/
+
+exports.searchRecipe = async (req, res) => {
+  try {
+    let searchTerm = req.body.searchTerm;
+    const searchResults = await Recipe.find({
+      $text: { $search: searchTerm, $diacriticSensitive: true },
+    });
+    res.render("search", {
+      title: "Cooking Blog: Search Results",
+      searchResults,
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
   }
 };
