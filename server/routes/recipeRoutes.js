@@ -11,6 +11,8 @@ const recipeController = require("../controllers/recipeController.js");
 router.get("/", recipeController.homepage);
 router.get("/categories", recipeController.exploreCategories);
 router.get("/recipe/:id", recipeController.exploreRecipe);
+router.get("/latest", recipeController.latest);
+router.get("/random", recipeController.random);
 router.post("/search", recipeController.searchRecipe);
 
 module.exports = router;
