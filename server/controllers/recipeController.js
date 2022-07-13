@@ -96,4 +96,20 @@ exports.latest = async (req, res) => {
   }
 };
 
-exports.random = async (req, res) => {};
+/*
+
+GET random
+
+*/
+
+exports.random = async (req, res) => {
+  try {
+    let count = await Recipe.countDocuments();
+    let random = Math.floor(Math.random() * count);
+    let recipe = await Recipe.findOne().skip(random).exec();
+    res.render("recipe", { title: `Cooking Blog: ${recipe.name}`, recipe });
+  } catch (error) {
+    console.log(error);
+    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
+  }
+};
