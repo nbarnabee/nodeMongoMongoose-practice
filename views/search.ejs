@@ -1,12 +1,13 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb">
     <li class="breadcrumb-item"><a href="/">Home</a></li>
-    <li class="breadcrumb-item active" aria-current="page">Search Results</li>
+    <li class="breadcrumb-item active" aria-current="page"><%= typeof heading != "undefined" ? heading : "Current" %>
+    </li>
   </ol>
 </nav>
 
 <section aria-labelledby="results" class="row g-3 g-lg-4 py-4 mx-2">
-  <h2 id="results" class="visually-hidden">Search Results</h2>
+  <h2 id="results" class="visually-hidden"><%= typeof heading != "undefined" ? heading : "Results" %></h2>
   <!-- Here is the part where we import the categories -->
   <% if(searchResults != "")  { %>
   <% searchResults.forEach((element, index) => { %>
