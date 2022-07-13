@@ -62,10 +62,11 @@ exports.searchRecipe = async (req, res) => {
   try {
     let searchTerm = req.body.searchTerm;
     const searchResults = await Recipe.find({
-      $text: { $search: searchTerm, $diacriticSensitive: true },
+      $text: { $search: searchTerm },
     });
     res.render("search", {
       title: "Cooking Blog: Search Results",
+      heading: "Search Results",
       searchResults,
     });
   } catch (error) {
@@ -73,3 +74,26 @@ exports.searchRecipe = async (req, res) => {
     res.render("error", { title: "Cooking Blog: Recipe Not Found" });
   }
 };
+
+/*
+
+GET latest
+
+*/
+
+exports.latest = async (req, res) => {
+  try {
+    const limit = 10;
+    const searchResults = await Recipe.find().sort({ _id: -1 }).limit(limit);
+    res.render("search", {
+      title: "Cooking Blog: Latest Recipes",
+      heading: "Latest Recipes",
+      searchResults,
+    });
+  } catch (error) {
+    console.log(error);
+    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
+  }
+};
+
+exports.random = async (req, res) => {};
