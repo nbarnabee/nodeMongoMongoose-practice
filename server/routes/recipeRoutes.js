@@ -13,8 +13,11 @@ router.get("/categories", recipeController.exploreCategories);
 router.get("/recipe/:id", recipeController.exploreRecipe);
 router.get("/latest", recipeController.latest);
 router.get("/random", recipeController.random);
-router.route("/submit").get(recipeController.submitRecipe);
 router.post("/search", recipeController.searchRecipe);
+router
+  .route("/submit")
+  .get(recipeController.submitRecipe)
+  .post(recipeController.submitRecipeOnPost);
 
 module.exports = router;
 

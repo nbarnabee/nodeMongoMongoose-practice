@@ -9,9 +9,12 @@
 <section aria-labelledby="results" class="row g-3 g-lg-4 py-4 mx-2">
   <h2 id="results" class="visually-hidden"><%= typeof heading != "undefined" ? heading : "Results" %></h2>
   <!-- Here is the part where we import the categories -->
+  <!-- Look at you, you clever girl, with that short-circuit
+    evaluation -->
   <% if(searchResults != "")  { %>
   <% searchResults.forEach((element, index) => { %>
-  <a href="/categories/<%= element.name %>" class="col-sm-6 col-md-3 col-lg text-center category__link">
+  <a href="/<%= `${path}/${element._id || element.name}` %>"
+    class="col-sm-6 col-md-3 col-lg text-center category__link">
     <div class="category__img shadow">
       <img src="img/<%= element.image %>" alt="<%= element.name %>" loading="lazy" class="h-100">
     </div>

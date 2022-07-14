@@ -91,8 +91,26 @@ async function updateRecipe(query, field, newValue) {
   }
 }
 
+/*  For example: 
+
 updateRecipe(
   { name: "Southern Fried Chicken" },
   "description",
   "Battered and fried chicken."
 );
+
+*/
+
+async function deleteRecipe(query) {
+  try {
+    await Recipe.deleteOne(query);
+  } catch (error) {
+    console.log(error);
+  }
+}
+
+/* For example
+
+deleteRecipe({name: "Southern Fried Chicken"});
+
+*/

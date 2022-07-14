@@ -14,6 +14,20 @@
 </div>
 
 <div class="row justify-content-center">
+
+
+  <% if (infoSuccessObj != "") { %>
+  <div class="alert alert-success col-8" role="alert">
+    <%= infoSuccessObj %>
+  </div>
+  <% } %>
+
+  <% if (infoErrorObj != "") { %>
+  <div class="alert alert-danger col-8" role="alert">
+    <%= infoErrorObj[0].message %>
+  </div>
+  <% } %>
+
   <div class="col-8">
     <form class="row g-3 mb-5" action="/submit" enctype="multipart/form-data" method="POST">
 
@@ -28,8 +42,8 @@
 
       </div>
       <div class="form-group">
-        <label for="recipe-name" class="form-label">Recipe Name</label>
-        <input type="text" class="form-control" name="recipe-name" id="recipe-name">
+        <label for="recipe" class="form-label">Recipe Name</label>
+        <input type="text" class="form-control" name="recipe" id="recipe">
 
       </div>
       <div class="form-group">
@@ -41,7 +55,7 @@
         <label for="ingredients" class="form-label">Ingredients</label>
         <div class="ingredientList">
           <div class="ingredientDiv mb-1">
-            <input type="text" class="form-control" name="ingredient">
+            <input type="text" class="form-control" name="ingredients" id="ingredients">
           </div>
           <small class="d-block text-muted form-text">Example: 200g chicken breast</small>
         </div>

@@ -32,7 +32,11 @@ GET /categories
 exports.exploreCategories = async (req, res) => {
   try {
     const categories = await Category.find();
-    res.render("categories", { title: "Cooking Blog: Categories", categories });
+    res.render("categories", {
+      title: "Cooking Blog: Categories",
+      path: "categories",
+      categories,
+    });
     // This tells the server to return a rendered version of the "categories.ejs" page, which will be slotted into the "main.ejs" template.  The fact that main.ejs is being used was defined over on app.js
   } catch (error) {
     res.status(500).send({ message: error.message || "Error occurred" });
@@ -67,6 +71,7 @@ exports.searchRecipe = async (req, res) => {
     res.render("search", {
       title: "Cooking Blog: Search Results",
       heading: "Search Results",
+      path: "recipe",
       searchResults,
     });
   } catch (error) {
@@ -88,6 +93,7 @@ exports.latest = async (req, res) => {
     res.render("search", {
       title: "Cooking Blog: Latest Recipes",
       heading: "Latest Recipes",
+      path: "recipe",
       searchResults,
     });
   } catch (error) {
@@ -122,8 +128,55 @@ GET submit
 
 exports.submitRecipe = async (req, res) => {
   try {
-    res.render("submit", { title: "Cooking Blog: Submit Your Recipe" });
+    const infoErrorObj = req.flash("infoErrors");
+    const infoSuccessObj = req.flash("infoSuccess");
+    // Here we are using the flash middleware to build up some messages that will be shown to the user upon a submission
+    res.render("submit", {
+      title: "Cooking Blog: Submit Your Recipe",
+      infoErrorObj,
+      infoSuccessObj,
+    });
   } catch (error) {
     res.status(500).send({ message: error.message || "Error occurred" });
+  }
+};
+
+/*  
+POST submit recipe
+*/
+
+exports.submitRecipeOnPost = async (req, res) => {
+  try {
+    let imageUploadFile;
+    let uploadPath;
+    let newImageName;
+
+    if (!req.files || Object.keys(req.files).length === 0) {
+      console.log("No files were uploaded.");
+    } else {
+      imageUploadFile = req.files.image;
+      newImageName = Date.now() + imageUploadFile.name;
+      uploadPath =
+        require("path").resolve("./") + "/public/img/" + newImageName;
+      imageUploadFile.mv(uploadPath, function (err) {
+        if (err) return res.status(500).send(err);
+      });
+    }
+
+    const newRecipe = new Recipe({
+      name: req.body.recipe,
+      description: req.body.description,
+      ingredients: req.body.ingredients,
+      category: req.body.category,
+      image: newImageName,
+    });
+    await newRecipe.save();
+    // console.log(req.body);
+    req.flash("infoSuccess", "Recipe added.  Thank you for your submission!");
+    res.redirect("/submit");
+    // this will refresh the page and display the success message
+  } catch (error) {
+    req.flash("infoError", error);
+    res.redirect("/submit");
   }
 };
