@@ -92,7 +92,7 @@ exports.latest = async (req, res) => {
     });
   } catch (error) {
     console.log(error);
-    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
+    res.status(500).send({ message: error.message || "Error occurred" });
   }
 };
 
@@ -110,6 +110,20 @@ exports.random = async (req, res) => {
     res.render("recipe", { title: `Cooking Blog: ${recipe.name}`, recipe });
   } catch (error) {
     console.log(error);
-    res.render("error", { title: "Cooking Blog: Recipe Not Found" });
+    res.status(500).send({ message: error.message || "Error occurred" });
+  }
+};
+
+/* 
+
+GET submit
+
+*/
+
+exports.submitRecipe = async (req, res) => {
+  try {
+    res.render("submit", { title: "Cooking Blog: Submit Your Recipe" });
+  } catch (error) {
+    res.status(500).send({ message: error.message || "Error occurred" });
   }
 };
