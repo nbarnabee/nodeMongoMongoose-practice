@@ -2,6 +2,8 @@ const express = require("express");
 const router = express.Router();
 const recipeController = require("../controllers/recipeController.js");
 
+// We're creating an instance of a router, attaching the handlers to it, and then exporting it (see the export line at the bottom)
+
 /*
  *  App Routes
  */
